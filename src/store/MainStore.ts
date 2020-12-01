@@ -4,12 +4,14 @@ import PraiseModel from '../model/PraiseModel';
 import PraiseRangeModel from '../model/PraiseRangeModel';
 
 import { praiseList } from '../list.js';
+import MenuModel from '../model/MenuModel';
 
 export default class MainStore {
     DEFAULT_NO = 738;
     IMAGE_PATH = 'https://vespasiani.cdn3.cafe24.com/dure';
     RANGE_SIZE = 100;
-    PAGE_SIZE = 24;
+
+    @observable menuList: MenuModel[] = [];
 
     @observable praiseList: PraiseModel[] = [];
     @observable selectedPraise;
@@ -36,12 +38,21 @@ export default class MainStore {
 
             this.setPraiseNo(this.DEFAULT_NO);
             this.setPraiseRangeList(praiseList);
+            this.setDefaultMenuList();
         });
     }
 
     @action.bound
     selectPraise(no: number = this.DEFAULT_NO) {
         this.setPraiseNo(no);
+    }
+
+    @action.bound
+    selectMenu(url: string) {
+        this.menuList.forEach((menu: MenuModel) => {
+            console.log(menu.url, url, url.indexOf(menu.url) > -1);
+            menu.isActive = url.indexOf(menu.url) > -1;
+        });
     }
 
     @action.bound
@@ -58,6 +69,11 @@ export default class MainStore {
         }
 
         this.keyword = value;
+    }
+
+    @action.bound
+    clearKeyword() {
+        this.keyword = '';
     }
 
     @computed
@@ -78,13 +94,13 @@ export default class MainStore {
         const subPraiseRange = this.praiseRangeList.find((range) => range.start === this.selectedPraiseRange);
 
         if (this.praiseList.length < 1) {
-            return;
+            return [];
         }
 
         return this.praiseList.filter((praise: PraiseModel) => praise.no >= subPraiseRange.start && praise.no <= subPraiseRange.end);
     }
 
-    setPraiseNo(no: number) {
+    private setPraiseNo(no: number) {
         const findItem = this.praiseList.find((item) => item.no === no);
 
         if (!findItem) {
@@ -94,7 +110,7 @@ export default class MainStore {
         this.selectedPraise = { ...findItem, url: `${this.IMAGE_PATH}${no}.jpg` };
     }
 
-    setPraiseRangeList(praiseList: PraiseModel[]) {
+    private setPraiseRangeList(praiseList: PraiseModel[]) {
         const praiseListLength = praiseList.length;
         const rangeArray = range(1, praiseListLength, this.RANGE_SIZE);
 
@@ -104,5 +120,37 @@ export default class MainStore {
                 end: rangeMin + this.RANGE_SIZE - 1 > praiseListLength ? praiseListLength : rangeMin + this.RANGE_SIZE - 1,
             });
         });
+    }
+
+    private setDefaultMenuList() {
+        const menuList = [
+            {
+                name: '목차',
+                url: '/catalog',
+                isActive: false,
+            },
+            {
+                name: '검색',
+                url: '/search',
+                isActive: false,
+            },
+            {
+                name: '악보',
+                url: '',
+                isActive: false,
+            },
+            {
+                name: '내역',
+                url: '/history',
+                isActive: false,
+            },
+            {
+                name: '정보',
+                url: '/info',
+                isActive: false,
+            },
+        ];
+
+        this.menuList = menuList.map((menu: MenuModel) => new MenuModel(menu));
     }
 }

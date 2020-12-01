@@ -14,7 +14,7 @@ class CatalogPage extends Component<MainStoreProps> {
     render() {
         console.log('CatalogPage');
         return (
-            <ListGroup flush>
+            <ListGroup>
                 <PraiseRangeList praiseRangeList={this.props.mainStore?.praiseRangeList} />
             </ListGroup>
         );

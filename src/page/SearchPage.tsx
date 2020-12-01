@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { InputGroup, InputGroupAddon, Input, Button, ListGroup } from 'reactstrap';
-import PraiseList from '../component/PraiseList';
+
+import Praise from '../component/Praise';
 import MainStore from '../store/MainStore';
 import { inject, observer } from 'mobx-react';
+import SearchBar from '../component/SearchBar';
+import PraiseList from '../component/PraiseList';
 
 interface MainStoreProps {
     mainStore?: MainStore;
@@ -11,21 +13,18 @@ interface MainStoreProps {
 @inject('mainStore')
 @observer
 class SearchPage extends Component<MainStoreProps> {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         console.log('SearchPage');
 
         return (
             <>
-                <InputGroup>
-                    <Input defaultValue={''} onChange={this.props.mainStore?.inputKeyword} placeholder="제목이나 번호를 입력하세요." />
-                    <InputGroupAddon addonType="append">
-                        <Button color="danger">초기화</Button>
-                    </InputGroupAddon>
-                </InputGroup>
+                <SearchBar />
                 <p />
-                <ListGroup>
-                    <PraiseList praiseList={this.props.mainStore?.searchedPraiseList} />
-                </ListGroup>
+                <PraiseList />
             </>
         );
     }

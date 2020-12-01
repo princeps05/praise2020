@@ -9,7 +9,7 @@ const PraiseRangeList = observer(({ praiseRangeList }) => {
     return praiseRangeList.map(({ start, end }) => {
         return (
             <ListGroupItem key={start} tag={RRNavLink} exact to={`/catalog/${start}`} action>
-                <Badge color="success">{start}</Badge> ~ <Badge color="success">{end}</Badge>
+                <Badge color="success">{start} 장</Badge> ~ <Badge color="success">{end} 장</Badge>
             </ListGroupItem>
         );
     });

@@ -1,0 +1,75 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+header {
+    top: 0;
+    border-width: 0 0 1px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    height:35px;
+    background-color: dodgerblue;
+}
+
+.sticky-top h5 {
+    color: floralwhite;
+    font-weight: bold;
+    margin-left: 40px;
+    margin-right: 40px;
+    text-align: center;
+    padding-top: 3px;
+}
+
+.sticky-top span.backBtn {
+    width: 45px;
+    height: 35px;
+    padding: 0px 14px;
+    position: fixed;
+    font-size: 20px;
+    top: 0;
+    left: 0;
+    color: floralwhite;
+}
+
+.sticky-top span.history {
+    width: 45px;
+    height: 35px;
+    padding: 0px 14px;
+    position: fixed;
+    font-size: 20px;
+    top: 0;
+    right: 0;
+    color: floralwhite;
+}
+
+.sticky-top span.refresh {
+    width: 45px;
+    height: 35px;
+    padding: 0px 14px;
+    position: fixed;
+    font-size: 20px;
+    top: 0;
+    right: 0;
+    color: floralwhite;
+}
+
+section{
+    margin: 8px 5px 43px 8px;
+    height: 100%;
+}
+
+footer	{
+    bottom: 0;
+    margin-bottom: 0;
+    border-width: 1px 0 0;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    border-top: 1px solid #ddd;
+    background-color: whitesmoke;
+}
