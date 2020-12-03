@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Praise from '../component/Praise';
 import MainStore from '../store/MainStore';
 import { inject, observer } from 'mobx-react';
 import SearchBar from '../component/SearchBar';
@@ -13,13 +12,11 @@ interface MainStoreProps {
 @inject('mainStore')
 @observer
 class SearchPage extends Component<MainStoreProps> {
-    constructor(props) {
+    constructor(props: MainStoreProps) {
         super(props);
     }
 
     render() {
-        console.log('SearchPage');
-
         return (
             <>
                 <SearchBar />

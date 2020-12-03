@@ -1,5 +1,5 @@
-import { makeObservable, observable, action, configure, transaction, computed } from 'mobx';
-import { range, cloneDeep } from 'lodash';
+import { makeObservable, observable, action, transaction, computed } from 'mobx';
+import { range } from 'lodash';
 import PraiseModel from '../model/PraiseModel';
 import PraiseRangeModel from '../model/PraiseRangeModel';
 
@@ -14,10 +14,10 @@ export default class MainStore {
     @observable menuList: MenuModel[] = [];
 
     @observable praiseList: PraiseModel[] = [];
-    @observable selectedPraise;
+    @observable selectedPraise: PraiseModel | undefined;
 
-    @observable praiseRangeList;
-    @observable selectedPraiseRange;
+    @observable praiseRangeList: PraiseRangeModel[] = [];
+    @observable selectedPraiseRange = 1;
 
     @observable keyword = '';
 
@@ -37,7 +37,7 @@ export default class MainStore {
             this.maxNo = praiseList[praiseList.length - 1].no;
 
             this.setPraiseNo(this.DEFAULT_NO);
-            this.setPraiseRangeList(praiseList);
+            this.setPraiseRangeList(praiseList.length);
             this.setDefaultMenuList();
         });
     }
@@ -93,7 +93,7 @@ export default class MainStore {
     get subPraiseList() {
         const subPraiseRange = this.praiseRangeList.find((range) => range.start === this.selectedPraiseRange);
 
-        if (this.praiseList.length < 1) {
+        if (!subPraiseRange || this.praiseList.length < 1) {
             return [];
         }
 
@@ -107,11 +107,12 @@ export default class MainStore {
             return;
         }
 
-        this.selectedPraise = { ...findItem, url: `${this.IMAGE_PATH}${no}.jpg` };
+        findItem.url = `${this.IMAGE_PATH}${no}.jpg`;
+
+        this.selectedPraise = findItem;
     }
 
-    private setPraiseRangeList(praiseList: PraiseModel[]) {
-        const praiseListLength = praiseList.length;
+    private setPraiseRangeList(praiseListLength: number) {
         const rangeArray = range(1, praiseListLength, this.RANGE_SIZE);
 
         this.praiseRangeList = rangeArray.map((rangeMin) => {
@@ -151,6 +152,6 @@ export default class MainStore {
             },
         ];
 
-        this.menuList = menuList.map((menu: MenuModel) => new MenuModel(menu));
+        this.menuList = menuList.map((menu: { name: string; url: string; isActive: boolean }) => new MenuModel(menu));
     }
 }

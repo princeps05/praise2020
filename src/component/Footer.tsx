@@ -25,7 +25,7 @@ class Footer extends Component<MainStoreProps> {
     }
 
     render() {
-        console.log('Footer');
+        console.log('Footer ');
 
         return (
             <footer className="fixed-bottom">

@@ -1,11 +1,19 @@
 import { observable } from 'mobx';
 
 export default class PraiseRangeModel {
-    @observable start?: number;
-    @observable end?: number;
+    @observable private readonly _start!: number;
+    @observable private readonly _end!: number;
 
-    constructor({ end, start }) {
-        this.end = end;
-        this.start = start;
+    constructor({ end, start }: { end: number; start: number }) {
+        this._end = end;
+        this._start = start;
+    }
+
+    public get start() {
+        return this._start;
+    }
+
+    public get end() {
+        return this._end;
     }
 }

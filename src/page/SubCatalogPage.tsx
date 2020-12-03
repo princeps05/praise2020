@@ -14,7 +14,7 @@ interface MainStoreProps {
 @inject('mainStore')
 @observer
 class SubCatalogPage extends Component<MainStoreProps> {
-    constructor(props) {
+    constructor(props: MainStoreProps) {
         super(props);
         this.props.mainStore?.selectPraiseRange(parseInt(this.props.match.params.start, 10));
     }

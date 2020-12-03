@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Badge } from 'reactstrap';
 import MainStore from '../store/MainStore';
-
+import { cloneDeep } from 'lodash';
 interface MainStoreProps {
     mainStore?: MainStore;
 }
@@ -43,14 +43,14 @@ class Header extends Component<MainStoreProps> {
 }
 
 const Title = observer(({ praise }) => {
-    console.log('Header Title');
+    console.log('Header Title', praise.no);
     return (
         <h5>
             <Badge color="success" pill>
                 {praise.no}장
             </Badge>
             <Badge color="primary" pill>
-                {praise.title}
+                {praise.title.length > 20 ? praise.title.substring(0, 20) + '...' : praise.title}
             </Badge>
         </h5>
     );
