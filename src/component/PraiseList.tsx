@@ -36,7 +36,7 @@ class PraiseList extends Component<MainStoreProps> {
             <ListGroup flush>
                 <InfiniteLoader isItemLoaded={this.isItemLoaded} itemCount={this.props.mainStore?.searchedPraiseList.length} threshold={20}>
                     {({ onItemsRendered, ref }) => (
-                        <List height={500} itemCount={this.props.mainStore?.searchedPraiseList.length} itemSize={50} onItemsRendered={onItemsRendered} ref={ref} width={'auto'}>
+                        <List height={window.innerHeight - 140} itemCount={this.props.mainStore?.searchedPraiseList.length} itemSize={50} onItemsRendered={onItemsRendered} ref={ref} width={'auto'}>
                             {this.row}
                         </List>
                     )}

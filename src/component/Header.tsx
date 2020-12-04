@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Badge } from 'reactstrap';
 import MainStore from '../store/MainStore';
-import { cloneDeep } from 'lodash';
+
 interface MainStoreProps {
     mainStore?: MainStore;
 }

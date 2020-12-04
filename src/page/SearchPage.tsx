@@ -20,7 +20,6 @@ class SearchPage extends Component<MainStoreProps> {
         return (
             <>
                 <SearchBar />
-                <p />
                 <PraiseList />
             </>
         );

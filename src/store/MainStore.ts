@@ -82,7 +82,7 @@ export default class MainStore {
             return this.praiseList;
         }
 
-        return this.praiseList.filter((praise) => {
+        return this.praiseList.filter((praise: PraiseModel) => {
             if (praise.no.toString().startsWith(this.keyword.toString()) || praise.title.indexOf(this.keyword.toString()) !== -1) {
                 return praise;
             }
@@ -91,7 +91,7 @@ export default class MainStore {
 
     @computed
     get subPraiseList() {
-        const subPraiseRange = this.praiseRangeList.find((range) => range.start === this.selectedPraiseRange);
+        const subPraiseRange = this.praiseRangeList.find((range: PraiseRangeModel) => range.start === this.selectedPraiseRange);
 
         if (!subPraiseRange || this.praiseList.length < 1) {
             return [];
@@ -101,7 +101,7 @@ export default class MainStore {
     }
 
     private setPraiseNo(no: number) {
-        const findItem = this.praiseList.find((item) => item.no === no);
+        const findItem = this.praiseList.find((item: PraiseModel) => item.no === no);
 
         if (!findItem) {
             return;
@@ -115,7 +115,7 @@ export default class MainStore {
     private setPraiseRangeList(praiseListLength: number) {
         const rangeArray = range(1, praiseListLength, this.RANGE_SIZE);
 
-        this.praiseRangeList = rangeArray.map((rangeMin) => {
+        this.praiseRangeList = rangeArray.map((rangeMin: number) => {
             return new PraiseRangeModel({
                 start: rangeMin,
                 end: rangeMin + this.RANGE_SIZE - 1 > praiseListLength ? praiseListLength : rangeMin + this.RANGE_SIZE - 1,

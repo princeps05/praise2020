@@ -37,7 +37,7 @@ class SubCatalogPage extends Component<MainStoreProps> {
             <ListGroup flush>
                 <InfiniteLoader isItemLoaded={this.isItemLoaded} itemCount={this.props.mainStore?.subPraiseList.length} threshold={20}>
                     {({ onItemsRendered, ref }) => (
-                        <List height={700} itemCount={this.props.mainStore?.subPraiseList.length} itemSize={50} onItemsRendered={onItemsRendered} ref={ref} width={'auto'}>
+                        <List height={window.innerHeight - 100} itemCount={this.props.mainStore?.subPraiseList.length} itemSize={50} onItemsRendered={onItemsRendered} ref={ref} width={'auto'}>
                             {this.row}
                         </List>
                     )}
