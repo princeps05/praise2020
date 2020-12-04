@@ -1,5 +1,5 @@
 import { makeObservable, observable, action, transaction, computed } from 'mobx';
-import { range, isEmpty, cloneDeep } from 'lodash';
+import { range, isEmpty } from 'lodash';
 import { format } from 'date-fns';
 import PraiseModel from '../model/PraiseModel';
 import PraiseRangeModel from '../model/PraiseRangeModel';
@@ -22,7 +22,7 @@ export default class MainStore {
     @observable praiseRangeList: PraiseRangeModel[] = [];
     @observable selectedPraiseRange = 1;
 
-    @observable keyword = '';
+    @observable keyword: string | number = '';
 
     maxNo = -1;
 
@@ -159,7 +159,7 @@ export default class MainStore {
 
     @computed
     get searchedPraiseList() {
-        if (!this.keyword.trim()) {
+        if (!this.keyword.toString().trim()) {
             return this.praiseList;
         }
 
@@ -174,7 +174,7 @@ export default class MainStore {
     get subPraiseList() {
         const subPraiseRange = this.praiseRangeList.find((range: PraiseRangeModel) => range.start === this.selectedPraiseRange);
 
-        if (!subPraiseRange || this.praiseList.length < 1) {
+        if (!subPraiseRange || isEmpty(this.praiseList)) {
             return [];
         }
 

@@ -12,7 +12,7 @@ interface MainStoreProps {
 @inject('mainStore')
 @observer
 class SubHistoryPage extends Component<MainStoreProps> {
-    constructor(props) {
+    constructor(props: MainStoreProps) {
         super(props);
         this.props.mainStore?.getSavedHistoryList(this.props.match.params.savedDate);
     }
