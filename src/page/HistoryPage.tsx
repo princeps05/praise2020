@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
+import MainStore from '../store/MainStore';
+import { inject, observer } from 'mobx-react';
+import { ListGroup } from 'reactstrap';
+import SavedDateList from '../component/SavedDateList';
 
-class HistoryPage extends Component {
-    // componentDidMount() {}
+interface MainStoreProps {
+    mainStore?: MainStore;
+}
 
+@inject('mainStore')
+@observer
+class HistoryPage extends Component<MainStoreProps> {
     render() {
-        return <>HistoryPage</>;
+        return (
+            <ListGroup>
+                <SavedDateList savedDateList={this.props.mainStore?.savedDateList} />
+            </ListGroup>
+        );
     }
 }
 

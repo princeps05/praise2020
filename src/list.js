@@ -905,7 +905,4 @@ export const praiseList = [
   { no: 899, title: '우리는주의움직이는교회' },
   { no: 900, title: '그는야훼' },
 
-  { no: 901, title: 'iamachildofgod' },
-  { no: 902, title: '불가능가능케돼' },
-  { no: 903, title: '주는존귀하신주' },
 ];

@@ -29,7 +29,12 @@ class Header extends Component<MainStoreProps> {
                     </svg>
                 </span>
                 <Title praise={this.props.mainStore?.selectedPraise} />
-                <span className="history">
+                <span
+                    className="history"
+                    onClick={() => {
+                        this.props.mainStore?.savePraise();
+                    }}
+                >
                     <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-bookmark-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
                             fillRule="evenodd"

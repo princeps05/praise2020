@@ -3,11 +3,12 @@ import { observable } from 'mobx';
 export default class PraiseModel {
     @observable private readonly _no: number;
     @observable private readonly _title: string;
-    @observable private _url?: string;
+    @observable private _url: string;
 
-    constructor({ no, title }: { no: number; title: string }) {
+    constructor({ no, title, url }: { no: number; title: string; url: string }) {
         this._no = no;
         this._title = title;
+        this._url = url;
     }
 
     public get no() {

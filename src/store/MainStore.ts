@@ -1,10 +1,12 @@
 import { makeObservable, observable, action, transaction, computed } from 'mobx';
-import { range } from 'lodash';
+import { range, isEmpty, cloneDeep } from 'lodash';
+import { format } from 'date-fns';
 import PraiseModel from '../model/PraiseModel';
 import PraiseRangeModel from '../model/PraiseRangeModel';
 
 import { praiseList } from '../list.js';
 import MenuModel from '../model/MenuModel';
+import HistoryModel from '../model/HistoryModel';
 
 export default class MainStore {
     DEFAULT_NO = 738;
@@ -14,6 +16,7 @@ export default class MainStore {
     @observable menuList: MenuModel[] = [];
 
     @observable praiseList: PraiseModel[] = [];
+    @observable savedPraiseList: PraiseModel[] = [];
     @observable selectedPraise: PraiseModel | undefined;
 
     @observable praiseRangeList: PraiseRangeModel[] = [];
@@ -33,7 +36,7 @@ export default class MainStore {
     @action.bound
     init() {
         transaction(() => {
-            this.praiseList = praiseList.map((praise) => new PraiseModel(praise));
+            this.praiseList = praiseList.map((praise) => new PraiseModel({ ...praise, url: '' }));
             this.maxNo = praiseList[praiseList.length - 1].no;
 
             this.setPraiseNo(this.DEFAULT_NO);
@@ -74,6 +77,84 @@ export default class MainStore {
     @action.bound
     clearKeyword() {
         this.keyword = '';
+    }
+
+    @action.bound
+    getSavedHistoryList(savedDate: string) {
+        const praise = localStorage.getItem('praise');
+        if (!praise) {
+            return [];
+        }
+
+        const historyList = JSON.parse(praise);
+        if (isEmpty(historyList)) {
+            return [];
+        }
+
+        const findItem = historyList.find((history) => history._formatedDate === savedDate);
+
+        this.savedPraiseList = findItem._savedList.map((item) => new PraiseModel({ no: item._no, title: item._title, url: item._url }));
+    }
+
+    @action.bound
+    savePraise() {
+        const today = format(new Date(), 'yyyyMMdd');
+        // const today = '20201205';
+        const praise = localStorage.getItem('praise');
+
+        if (!praise) {
+            const savedList: any = [];
+            savedList.push(this.selectedPraise);
+
+            const historyModel = new HistoryModel(today);
+            historyModel.savedList = savedList;
+
+            const historyList: HistoryModel[] = [];
+            historyList.push(historyModel);
+
+            localStorage.setItem('praise', JSON.stringify(historyList));
+
+            return;
+        }
+
+        const historyList = JSON.parse(praise);
+
+        if (!isEmpty(historyList) && !isEmpty(historyList.find((history) => history._savedDate === today))) {
+            historyList.forEach((history) => {
+                if (history._savedDate === today) {
+                    history._savedList.push(this.selectedPraise);
+                }
+            });
+
+            localStorage.setItem('praise', JSON.stringify(historyList));
+
+            return;
+        }
+
+        const savedList: any = [];
+        savedList.push(this.selectedPraise);
+
+        const historyModel = new HistoryModel(today);
+        historyModel.savedList = savedList;
+
+        historyList.push(historyModel);
+
+        localStorage.setItem('praise', JSON.stringify(historyList));
+    }
+
+    @computed
+    get savedDateList() {
+        const praise = localStorage.getItem('praise');
+        if (!praise) {
+            return [];
+        }
+
+        const historyList = JSON.parse(praise);
+        if (isEmpty(historyList)) {
+            return [];
+        }
+
+        return historyList.map((history) => history._formatedDate);
     }
 
     @computed

@@ -6,6 +6,7 @@ import MainStore from './store/MainStore';
 import MainPage from './page/MainPage';
 import SearchPage from './page/SearchPage';
 import HistoryPage from './page/HistoryPage';
+import SubHistoryPage from './page/SubHistoryPage';
 import CatalogPage from './page/CatalogPage';
 import SubCatalogPage from './page/SubCatalogPage';
 import InfoPage from './page/InfoPage';
@@ -32,6 +33,7 @@ export default class App extends Component {
                         <Route exact path="/catalog/:start?" component={SubCatalogPage} />
                         <Route exact path="/search" component={SearchPage} />
                         <Route exact path="/history" component={HistoryPage} />
+                        <Route exact path="/history/:savedDate" component={SubHistoryPage} />
                         <Route exact path="/info" component={InfoPage} />
                         <Route exact path="/:no?" component={MainPage} />
                     </Switch>
