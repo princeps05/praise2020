@@ -11,7 +11,7 @@ interface MainStoreProps {
 @observer
 class Header extends Component<MainStoreProps> {
     render() {
-        console.log('Header render');
+        console.log('Header render', this.props);
 
         return (
             <header className="sticky-top">
@@ -49,6 +49,11 @@ class Header extends Component<MainStoreProps> {
 
 const Title = observer(({ praise }) => {
     console.log('Header Title', praise.no);
+
+    if (!praise) {
+        return <h5>찬양</h5>;
+    }
+
     return (
         <h5>
             <Badge color="success" pill>

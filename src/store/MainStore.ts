@@ -1,7 +1,8 @@
 import { makeObservable, observable, action, transaction, computed } from 'mobx';
-import { range, isEmpty } from 'lodash';
+import { range, isEmpty, sortBy } from 'lodash';
 import { format } from 'date-fns';
 import PraiseModel from '../model/PraiseModel';
+import SavedPraiseModel from '../model/SavedPraiseModel';
 import PraiseRangeModel from '../model/PraiseRangeModel';
 
 import { praiseList } from '../list.js';
@@ -39,7 +40,7 @@ export default class MainStore {
             this.praiseList = praiseList.map((praise) => new PraiseModel({ ...praise, url: '' }));
             this.maxNo = praiseList[praiseList.length - 1].no;
 
-            this.setPraiseNo(this.DEFAULT_NO);
+            this.setPraise(this.DEFAULT_NO);
             this.setPraiseRangeList(praiseList.length);
             this.setDefaultMenuList();
         });
@@ -47,11 +48,12 @@ export default class MainStore {
 
     @action.bound
     selectPraise(no: number = this.DEFAULT_NO) {
-        this.setPraiseNo(no);
+        this.setPraise(no);
     }
 
     @action.bound
     selectMenu(url: string) {
+        console.log('selectMenu', url);
         this.menuList.forEach((menu: MenuModel) => {
             console.log(menu.url, url, url.indexOf(menu.url) > -1);
             menu.isActive = url.indexOf(menu.url) > -1;
@@ -93,7 +95,9 @@ export default class MainStore {
 
         const findItem = historyList.find((history) => history._formatedDate === savedDate);
 
-        this.savedPraiseList = findItem._savedList.map((item) => new PraiseModel({ no: item._no, title: item._title, url: item._url }));
+        const praiseList = findItem._savedList.map((item) => new PraiseModel({ no: item._no, title: item._title, url: `${this.IMAGE_PATH}${item._no}.jpg` }));
+
+        this.savedPraiseList = sortBy(praiseList, 'seq');
     }
 
     @action.bound
@@ -102,9 +106,10 @@ export default class MainStore {
         // const today = '20201205';
         const praise = localStorage.getItem('praise');
 
+        // 로컬스토리지에 아예 없는 경우
         if (!praise) {
-            const savedList: any = [];
-            savedList.push(this.selectedPraise);
+            const savedList: SavedPraiseModel[] = [];
+            savedList.push(new SavedPraiseModel({ no: this.selectedPraise?.no, title: this.selectedPraise?.title }));
 
             const historyModel = new HistoryModel(today);
             historyModel.savedList = savedList;
@@ -119,20 +124,26 @@ export default class MainStore {
 
         const historyList = JSON.parse(praise);
 
+        // 로컬스토리지의 오늘 날짜에 저장된 목록이 있는 경우
         if (!isEmpty(historyList) && !isEmpty(historyList.find((history) => history._savedDate === today))) {
             historyList.forEach((history) => {
                 if (history._savedDate === today) {
-                    history._savedList.push(this.selectedPraise);
+                    const findItem = history._savedList.find((praise) => praise._no === this.selectedPraise?.no);
+
+                    if (!findItem) {
+                        history._savedList.push(new SavedPraiseModel({ no: this.selectedPraise?.no, title: this.selectedPraise?.title }));
+
+                        localStorage.setItem('praise', JSON.stringify(historyList));
+                    }
                 }
             });
-
-            localStorage.setItem('praise', JSON.stringify(historyList));
 
             return;
         }
 
-        const savedList: any = [];
-        savedList.push(this.selectedPraise);
+        // 로컬스토리지의 오늘 날짜에 저장된 목록이 없는 경우
+        const savedList: SavedPraiseModel[] = [];
+        savedList.push(new SavedPraiseModel({ no: this.selectedPraise?.no, title: this.selectedPraise?.title }));
 
         const historyModel = new HistoryModel(today);
         historyModel.savedList = savedList;
@@ -181,7 +192,7 @@ export default class MainStore {
         return this.praiseList.filter((praise: PraiseModel) => praise.no >= subPraiseRange.start && praise.no <= subPraiseRange.end);
     }
 
-    private setPraiseNo(no: number) {
+    private setPraise(no: number) {
         const findItem = this.praiseList.find((item: PraiseModel) => item.no === no);
 
         if (!findItem) {

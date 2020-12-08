@@ -1,12 +1,12 @@
 import { observable } from 'mobx';
 import { parse, format } from 'date-fns';
 
-import PraiseModel from './PraiseModel';
+import SavedPraiseModel from './SavedPraiseModel';
 
 export default class HistoryModel {
     @observable private readonly _savedDate!: string;
     @observable private readonly _formatedDate!: string;
-    @observable private _savedList!: PraiseModel[];
+    @observable private _savedList!: SavedPraiseModel[];
 
     constructor(savedDate: string) {
         this._savedDate = savedDate;
@@ -25,7 +25,7 @@ export default class HistoryModel {
         return this._savedList;
     }
 
-    public set savedList(list: PraiseModel[]) {
+    public set savedList(list: SavedPraiseModel[]) {
         this._savedList = list;
     }
 }

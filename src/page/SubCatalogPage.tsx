@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, CSSProperties } from 'react';
 import { ListGroup } from 'reactstrap';
 import { FixedSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
@@ -19,9 +19,9 @@ class SubCatalogPage extends Component<MainStoreProps> {
         this.props.mainStore?.selectPraiseRange(parseInt(this.props.match.params.start, 10));
     }
 
-    isItemLoaded = (index) => !!this.props.mainStore?.subPraiseList[index];
+    isItemLoaded = (index: number) => !!this.props.mainStore?.subPraiseList[index];
 
-    row = ({ index, style }) => {
+    row = ({ index, style }: { index: number; style: CSSProperties }) => {
         const item = this.props.mainStore?.subPraiseList[index];
 
         return (

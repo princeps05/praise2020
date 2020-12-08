@@ -17,7 +17,7 @@ class MainPage extends Component<MainStoreProps> {
 
     render() {
         console.log('MainPage');
-        return <img width="100%" src={this.props.mainStore?.selectedPraise!.url} alt={this.props.mainStore?.selectedPraise!.title} />;
+        return <img width="100%" src={this.props.mainStore?.selectedPraise?.url} alt={this.props.mainStore?.selectedPraise?.title} />;
     }
 }
 

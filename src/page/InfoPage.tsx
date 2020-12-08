@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Card, Button, CardHeader, CardFooter, CardBody, CardTitle, CardText } from 'reactstrap';
 
 class InfoPage extends Component {
-    // componentDidMount() {}
-
     render() {
         return (
             <Card>

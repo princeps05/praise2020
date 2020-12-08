@@ -16,7 +16,8 @@
   "rules": {
     // Place to specify ESLint rules.
     // Can be used to overwrite rules specified from the extended configs
-    // e.g. "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-function-return-type": "off", // 리액트 컴포넌트 리턴 타입 명시 제거 (React.FC 로 지정할 경우, defaultProps 이 미작동하는 경우가 발생)
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "settings": {
     "react": {
