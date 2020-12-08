@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MainStore from '../store/MainStore';
 import { inject, observer } from 'mobx-react';
-import { ListGroup } from 'reactstrap';
+import { ListGroup } from 'react-bootstrap';
 import SavedDateList from '../component/SavedDateList';
 
 interface MainStoreProps {

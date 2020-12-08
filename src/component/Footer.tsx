@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { NavLink as RRNavLink, withRouter, RouteComponentProps } from 'react-router-dom';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { NavLink, withRouter, RouteComponentProps } from 'react-router-dom';
+import { Nav, Navbar } from 'react-bootstrap';
 import MainStore from '../store/MainStore';
 import { inject, observer } from 'mobx-react';
+import { LinkContainer } from 'react-router-bootstrap';
 
 interface MainStoreProps extends RouteComponentProps<any> {
     mainStore?: MainStore;
@@ -21,7 +22,7 @@ class Footer extends Component<MainStoreProps> {
 
     componentDidUpdate() {
         console.log('Footer componentDidUpdate', this.props.location.pathname);
-        this.props.mainStore?.selectMenu(this.props.location.pathname);
+        // this.props.mainStore?.selectMenu(this.props.location.pathname);
     }
 
     render() {
@@ -29,30 +30,30 @@ class Footer extends Component<MainStoreProps> {
 
         return (
             <footer className="fixed-bottom">
-                <Nav tabs={true} justified={true}>
-                    <MenuList menuList={this.props.mainStore?.menuList} />
+                <Nav justify variant="tabs">
+                    <MenuList menuList={this.props.mainStore?.menuList} selectMenu={this.props.mainStore?.selectMenu} />
                 </Nav>
             </footer>
         );
     }
 }
 
-const MenuList = observer(({ menuList }) => {
+const MenuList = observer(({ menuList, selectMenu }) => {
     console.log('Footer MenuList');
     return menuList.map((menu) => {
-        return <Menu key={menu.url} menu={menu} />;
+        return <Menu key={menu.url} menu={menu} selectMenu={selectMenu} />;
     });
 });
 
-const Menu = observer(({ menu }) => {
+const Menu = observer(({ menu, selectMenu }) => {
     const { name, url, isActive } = menu;
-    console.log('Footer Menu', isActive);
+    console.log('Footer Menu', isActive, url);
     return (
-        <NavItem active={isActive}>
-            <NavLink tag={RRNavLink} exact to={url}>
+        <LinkContainer to={url}>
+            <Nav.Link eventKey={url} active={isActive} onSelect={selectMenu}>
                 {name}
-            </NavLink>
-        </NavItem>
+            </Nav.Link>
+        </LinkContainer>
     );
 });
 

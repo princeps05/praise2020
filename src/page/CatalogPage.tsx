@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroup } from 'reactstrap';
+import { ListGroup } from 'react-bootstrap';
 import { inject, observer } from 'mobx-react';
 import MainStore from '../store/MainStore';
 import PraiseRangeList from '../component/PraiseRangeList';
@@ -13,6 +13,7 @@ interface MainStoreProps {
 class CatalogPage extends Component<MainStoreProps> {
     render() {
         console.log('CatalogPage');
+
         return (
             <ListGroup>
                 <PraiseRangeList praiseRangeList={this.props.mainStore?.praiseRangeList} />

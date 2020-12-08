@@ -1,5 +1,5 @@
 import React, { Component, CSSProperties } from 'react';
-import { ListGroup } from 'reactstrap';
+import { ListGroup } from 'react-bootstrap';
 import { FixedSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import { inject, observer } from 'mobx-react';
@@ -34,7 +34,7 @@ class SubCatalogPage extends Component<MainStoreProps> {
     render() {
         console.log('CatalogPage');
         return (
-            <ListGroup flush>
+            <ListGroup>
                 <InfiniteLoader isItemLoaded={this.isItemLoaded} itemCount={this.props.mainStore?.subPraiseList.length} threshold={20}>
                     {({ onItemsRendered, ref }) => (
                         <List height={window.innerHeight - 100} itemCount={this.props.mainStore?.subPraiseList.length} itemSize={50} onItemsRendered={onItemsRendered} ref={ref} width={'auto'}>

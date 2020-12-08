@@ -7,7 +7,7 @@ scripts/*
 
 src/reportWebVitals.ts
 src/service-worker.ts
-src/serviceWorkerRegistration.ts
+#src/serviceWorkerRegistration.ts
 src/setupTests.ts
 src/list.js
 package.json

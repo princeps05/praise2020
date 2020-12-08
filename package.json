@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -15,6 +17,7 @@
     "@typescript-eslint/eslint-plugin": "^4.8.2",
     "@typescript-eslint/parser": "^4.8.2",
     "axios": "^0.21.0",
+    "babel-preset-react-app": "^10.0.0",
     "bootstrap": "^4.5.3",
     "bootstrap-icons": "^1.1.0",
     "date-fns": "^2.16.1",
@@ -28,7 +31,9 @@
     "mobx-react": "^7.0.5",
     "prettier": "^2.2.0",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
+    "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-window": "^1.8.6",
@@ -53,7 +58,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "snowpack dev --config snowpack.config.js"
   },
   "eslintConfig": {
     "extends": [
@@ -72,5 +78,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
+    "@babel/preset-react": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.7",
+    "@snowpack/app-scripts-react": "^1.12.5",
+    "@snowpack/plugin-babel": "^2.1.4",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "snowpack": "^2.15.1"
   }
 }

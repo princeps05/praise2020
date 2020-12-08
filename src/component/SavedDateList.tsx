@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
-import { Badge, ListGroupItem } from 'reactstrap';
-import { NavLink as RRNavLink } from 'react-router-dom';
+import { Badge, ListGroupItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import React from 'react';
 
 const SavedDateList = observer(({ savedDateList }) => {
@@ -8,8 +8,10 @@ const SavedDateList = observer(({ savedDateList }) => {
 
     return savedDateList.map((date) => {
         return (
-            <ListGroupItem key={date} tag={RRNavLink} exact to={`/history/${date}`} action>
+            <ListGroupItem key={date}>
+                {/*<LinkContainer exact to={`/history/${date}`}>*/}
                 <Badge color="success">{date}</Badge>
+                {/*</LinkContainer>*/}
             </ListGroupItem>
         );
     });

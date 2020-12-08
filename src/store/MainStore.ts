@@ -52,12 +52,12 @@ export default class MainStore {
     }
 
     @action.bound
-    selectMenu(url: string) {
-        console.log('selectMenu', url);
-        this.menuList.forEach((menu: MenuModel) => {
-            console.log(menu.url, url, url.indexOf(menu.url) > -1);
-            menu.isActive = url.indexOf(menu.url) > -1;
-        });
+    selectMenu(eventKey: any, event: any) {
+        console.log('selectMenu', eventKey, event);
+        // this.menuList.forEach((menu: MenuModel) => {
+        //     console.log(menu.url, url, url.indexOf(menu.url) > -1);
+        //     menu.isActive = url.indexOf(menu.url) > -1;
+        // });
     }
 
     @action.bound

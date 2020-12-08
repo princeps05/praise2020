@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
-import { Badge, ListGroupItem } from 'reactstrap';
-import { NavLink as RRNavLink } from 'react-router-dom';
+import { Badge, ListGroupItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import React from 'react';
 
 const PraiseRangeList = observer(({ praiseRangeList }) => {
@@ -8,8 +8,10 @@ const PraiseRangeList = observer(({ praiseRangeList }) => {
 
     return praiseRangeList.map(({ start, end }) => {
         return (
-            <ListGroupItem key={start} tag={RRNavLink} exact to={`/catalog/${start}`} action>
+            <ListGroupItem key={start} action>
+                {/*<LinkContainer exact to={`/catalog/${start}`}>*/}
                 <Badge color="success">{start} 장</Badge> ~ <Badge color="success">{end} 장</Badge>
+                {/*</LinkContainer>*/}
             </ListGroupItem>
         );
     });

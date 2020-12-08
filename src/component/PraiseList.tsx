@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroup } from 'reactstrap';
+import { ListGroup } from 'react-bootstrap';
 import { FixedSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import MainStore from '../store/MainStore';
@@ -33,7 +33,7 @@ class PraiseList extends Component<MainStoreProps> {
         console.log('PraiseList');
 
         return (
-            <ListGroup flush>
+            <ListGroup>
                 <InfiniteLoader isItemLoaded={this.isItemLoaded} itemCount={this.props.mainStore?.searchedPraiseList.length} threshold={20}>
                     {({ onItemsRendered, ref }) => (
                         <List height={window.innerHeight - 140} itemCount={this.props.mainStore?.searchedPraiseList.length} itemSize={50} onItemsRendered={onItemsRendered} ref={ref} width={'auto'}>

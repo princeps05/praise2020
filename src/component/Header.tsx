@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Badge } from 'reactstrap';
+import { Badge } from 'react-bootstrap';
 import MainStore from '../store/MainStore';
 
 interface MainStoreProps {
