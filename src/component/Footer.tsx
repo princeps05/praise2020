@@ -30,30 +30,30 @@ class Footer extends Component<MainStoreProps> {
 
         return (
             <footer className="fixed-bottom">
-                <Nav justify variant="tabs">
-                    <MenuList menuList={this.props.mainStore?.menuList} selectMenu={this.props.mainStore?.selectMenu} />
+                <Nav justify variant="tabs" onSelect={this.props.mainStore?.selectMenu}>
+                    <MenuList menuList={this.props.mainStore?.menuList} />
                 </Nav>
             </footer>
         );
     }
 }
 
-const MenuList = observer(({ menuList, selectMenu }) => {
+const MenuList = observer(({ menuList }) => {
     console.log('Footer MenuList');
     return menuList.map((menu) => {
-        return <Menu key={menu.url} menu={menu} selectMenu={selectMenu} />;
+        return <Menu key={menu.url} menu={menu} />;
     });
 });
 
-const Menu = observer(({ menu, selectMenu }) => {
+const Menu = observer(({ menu }) => {
     const { name, url, isActive } = menu;
     console.log('Footer Menu', isActive, url);
     return (
-        <LinkContainer to={url}>
-            <Nav.Link eventKey={url} active={isActive} onSelect={selectMenu}>
-                {name}
-            </Nav.Link>
-        </LinkContainer>
+        <Nav.Item>
+            <LinkContainer exact to={url}>
+                <Nav.Link eventKey={url}>{name}</Nav.Link>
+            </LinkContainer>
+        </Nav.Item>
     );
 });
 

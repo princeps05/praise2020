@@ -8,12 +8,14 @@ const Praise = observer(({ praise }) => {
 
     return (
         <ListGroupItem key={no}>
-            {/*<LinkContainer exact to={`/${no}`}>*/}
-            <Badge color="success" pill>
-                {no} 장
-            </Badge>
-            <span>&nbsp;{title}</span>
-            {/*</LinkContainer>*/}
+            <LinkContainer exact to={`/${no}`}>
+                <div>
+                    <Badge color="success" pill>
+                        {no} 장
+                    </Badge>
+                    <span>&nbsp;{title}</span>
+                </div>
+            </LinkContainer>
         </ListGroupItem>
     );
 });

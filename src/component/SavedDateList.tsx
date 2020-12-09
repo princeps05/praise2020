@@ -9,9 +9,9 @@ const SavedDateList = observer(({ savedDateList }) => {
     return savedDateList.map((date) => {
         return (
             <ListGroupItem key={date}>
-                {/*<LinkContainer exact to={`/history/${date}`}>*/}
-                <Badge color="success">{date}</Badge>
-                {/*</LinkContainer>*/}
+                <LinkContainer exact to={`/history/${date}`}>
+                    <Badge color="success">{date}</Badge>
+                </LinkContainer>
             </ListGroupItem>
         );
     });

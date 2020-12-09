@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 
 import MainStore from './store/MainStore';
@@ -24,23 +24,25 @@ export default class App extends Component {
     render() {
         console.log('App');
         return (
-            <Provider mainStore={this.mainStore}>
-                <Header />
+            <Router>
+                <Provider mainStore={this.mainStore}>
+                    <Header />
 
-                <section>
-                    <Switch>
-                        <Route exact path="/catalog" component={CatalogPage} />
-                        <Route exact path="/catalog/:start?" component={SubCatalogPage} />
-                        <Route exact path="/search" component={SearchPage} />
-                        <Route exact path="/history" component={HistoryPage} />
-                        <Route exact path="/history/:savedDate" component={SubHistoryPage} />
-                        <Route exact path="/info" component={InfoPage} />
-                        <Route exact path="/:no?" component={MainPage} />
-                    </Switch>
-                </section>
+                    <section>
+                        <Switch>
+                            <Route exact path="/catalog" component={CatalogPage} />
+                            <Route exact path="/catalog/:start?" component={SubCatalogPage} />
+                            <Route exact path="/search" component={SearchPage} />
+                            <Route exact path="/history" component={HistoryPage} />
+                            <Route exact path="/history/:savedDate" component={SubHistoryPage} />
+                            <Route exact path="/info" component={InfoPage} />
+                            <Route exact path="/:no?" component={MainPage} />
+                        </Switch>
+                    </section>
 
-                <Footer />
-            </Provider>
+                    <Footer />
+                </Provider>
+            </Router>
         );
     }
 }

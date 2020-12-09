@@ -9,9 +9,11 @@ const PraiseRangeList = observer(({ praiseRangeList }) => {
     return praiseRangeList.map(({ start, end }) => {
         return (
             <ListGroupItem key={start} action>
-                {/*<LinkContainer exact to={`/catalog/${start}`}>*/}
-                <Badge color="success">{start} 장</Badge> ~ <Badge color="success">{end} 장</Badge>
-                {/*</LinkContainer>*/}
+                <LinkContainer exact to={`/catalog/${start}`}>
+                    <div>
+                        <Badge color="success">{start} 장</Badge> ~ <Badge color="success">{end} 장</Badge>
+                    </div>
+                </LinkContainer>
             </ListGroupItem>
         );
     });

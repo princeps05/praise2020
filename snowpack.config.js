@@ -13,4 +13,7 @@ module.exports = {
             plugins: [require('rollup-plugin-node-polyfills')()],
         },
     },
+    experiments: {
+        routes: [{ src: '.*', dest: '/index.html', match: 'routes' }],
+    },
 };
