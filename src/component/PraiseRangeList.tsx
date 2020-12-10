@@ -11,7 +11,7 @@ const PraiseRangeList = observer(({ praiseRangeList }) => {
             <ListGroupItem key={start} action>
                 <LinkContainer exact to={`/catalog/${start}`}>
                     <div>
-                        <Badge color="success">{start} 장</Badge> ~ <Badge color="success">{end} 장</Badge>
+                        <Badge variant="success">{start} 장</Badge> ~ <Badge variant="success">{end} 장</Badge>
                     </div>
                 </LinkContainer>
             </ListGroupItem>

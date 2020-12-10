@@ -16,20 +16,11 @@ class Footer extends Component<MainStoreProps> {
         super(props);
     }
 
-    componentDidMount() {
-        console.log('Footer componentDidMount', this.props.history);
-    }
-
-    componentDidUpdate() {
-        console.log('Footer componentDidUpdate', this.props.location.pathname);
-        // this.props.mainStore?.selectMenu(this.props.location.pathname);
-    }
-
     render() {
         console.log('Footer ');
 
         return (
-            <footer className="fixed-bottom">
+            <footer>
                 <Nav justify variant="tabs" onSelect={this.props.mainStore?.selectMenu}>
                     <MenuList menuList={this.props.mainStore?.menuList} />
                 </Nav>
@@ -51,7 +42,9 @@ const Menu = observer(({ menu }) => {
     return (
         <Nav.Item>
             <LinkContainer exact to={url}>
-                <Nav.Link eventKey={url}>{name}</Nav.Link>
+                <Nav.Link eventKey={url} active={isActive}>
+                    {name}
+                </Nav.Link>
             </LinkContainer>
         </Nav.Item>
     );

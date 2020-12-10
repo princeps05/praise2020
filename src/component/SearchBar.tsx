@@ -21,7 +21,7 @@ class SearchBar extends Component<MainStoreProps> {
             <InputGroup className="mb-3">
                 <FormControl onChange={this.props.mainStore?.inputKeyword} placeholder="제목이나 번호를 입력하세요." aria-label="제목이나 번호를 입력하세요." value={this.props.mainStore?.keyword} />
                 <InputGroup.Append>
-                    <Button onClick={this.props.mainStore?.clearKeyword} variant="outline-secondary">
+                    <Button onClick={this.props.mainStore?.clearKeyword} variant="danger">
                         초기화
                     </Button>
                 </InputGroup.Append>

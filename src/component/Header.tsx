@@ -10,6 +10,13 @@ interface MainStoreProps {
 @inject('mainStore')
 @observer
 class Header extends Component<MainStoreProps> {
+    componentDidMount() {
+        this.props.mainStore?.checkIsTodaySavedPraise();
+    }
+    componentDidUpdate() {
+        this.props.mainStore?.checkIsTodaySavedPraise();
+    }
+
     render() {
         console.log('Header render', this.props);
 
@@ -34,6 +41,7 @@ class Header extends Component<MainStoreProps> {
                     onClick={() => {
                         this.props.mainStore?.savePraise();
                     }}
+                    style={{ color: this.props.mainStore?.isTodaySavedPraise ? 'hotpink' : 'snow' }}
                 >
                     <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-bookmark-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -51,18 +59,18 @@ const Title = observer(({ praise }) => {
     console.log('Header Title', praise.no);
 
     if (!praise) {
-        return <h5>찬양</h5>;
+        return <h6>찬양</h6>;
     }
 
     return (
-        <h5>
-            <Badge color="success" pill>
-                {praise.no}장
-            </Badge>
-            <Badge color="primary" pill>
+        <div>
+            <h6>
+                <Badge variant="success" pill>
+                    {praise.no} 장
+                </Badge>
                 {praise.title.length > 20 ? praise.title.substring(0, 20) + '...' : praise.title}
-            </Badge>
-        </h5>
+            </h6>
+        </div>
     );
 });
 

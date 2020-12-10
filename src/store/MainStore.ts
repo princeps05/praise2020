@@ -25,6 +25,8 @@ export default class MainStore {
 
     @observable keyword: string | number = '';
 
+    @observable isTodaySavedPraise = false;
+
     maxNo = -1;
 
     constructor() {
@@ -52,12 +54,12 @@ export default class MainStore {
     }
 
     @action.bound
-    selectMenu(eventKey: any, event: any) {
-        console.log('selectMenu', eventKey, event);
-        // this.menuList.forEach((menu: MenuModel) => {
-        //     console.log(menu.url, url, url.indexOf(menu.url) > -1);
-        //     menu.isActive = url.indexOf(menu.url) > -1;
-        // });
+    selectMenu(url) {
+        console.log('selectMenu', url);
+        this.menuList.forEach((menu: MenuModel) => {
+            console.log(menu.url, url, url.indexOf(menu.url) > -1);
+            menu.isActive = url.indexOf(menu.url) > -1;
+        });
     }
 
     @action.bound
@@ -134,6 +136,8 @@ export default class MainStore {
                         history._savedList.push(new SavedPraiseModel({ no: this.selectedPraise?.no, title: this.selectedPraise?.title }));
 
                         localStorage.setItem('praise', JSON.stringify(historyList));
+
+                        this.isTodaySavedPraise = true;
                     }
                 }
             });
@@ -151,6 +155,37 @@ export default class MainStore {
         historyList.push(historyModel);
 
         localStorage.setItem('praise', JSON.stringify(historyList));
+
+        this.isTodaySavedPraise = true;
+    }
+
+    @action.bound
+    checkIsTodaySavedPraise() {
+        const today = format(new Date(), 'yyyyMMdd');
+        const praise = localStorage.getItem('praise');
+
+        if (!praise) {
+            this.isTodaySavedPraise = false;
+            return;
+        }
+
+        const historyList = JSON.parse(praise);
+
+        if (isEmpty(historyList)) {
+            this.isTodaySavedPraise = false;
+            return;
+        }
+
+        const todaySavedHistory = historyList.find((history) => history._savedDate === today);
+
+        if (isEmpty(todaySavedHistory)) {
+            this.isTodaySavedPraise = false;
+            return;
+        }
+
+        const findItem = todaySavedHistory._savedList.find((praise) => praise._no === this.selectedPraise?.no);
+
+        this.isTodaySavedPraise = !!findItem;
     }
 
     @computed

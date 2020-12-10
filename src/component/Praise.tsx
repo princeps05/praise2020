@@ -10,7 +10,7 @@ const Praise = observer(({ praise }) => {
         <ListGroupItem key={no}>
             <LinkContainer exact to={`/${no}`}>
                 <div>
-                    <Badge color="success" pill>
+                    <Badge variant="success" pill>
                         {no} 장
                     </Badge>
                     <span>&nbsp;{title}</span>
