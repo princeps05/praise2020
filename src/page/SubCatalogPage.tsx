@@ -1,10 +1,11 @@
 import React, { Component, CSSProperties } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { Alert, Button, ListGroup } from 'react-bootstrap';
 import { FixedSizeList as List } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import { inject, observer } from 'mobx-react';
 import MainStore from '../store/MainStore';
 import Praise from '../component/Praise';
+import { isEmpty } from 'lodash';
 
 interface MainStoreProps {
     mainStore?: MainStore;
@@ -33,6 +34,20 @@ class SubCatalogPage extends Component<MainStoreProps> {
 
     render() {
         console.log('CatalogPage');
+        if (isEmpty(this.props.mainStore?.subPraiseList)) {
+            return (
+                <Alert variant="danger">
+                    목차를 확인해주세요.
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={() => window.history.back()} variant="outline-danger">
+                            뒤로 가기
+                        </Button>
+                    </div>
+                </Alert>
+            );
+        }
+
         return (
             <ListGroup>
                 <InfiniteLoader isItemLoaded={this.isItemLoaded} itemCount={this.props.mainStore?.subPraiseList.length} threshold={20}>

@@ -1,16 +1,33 @@
 import { observer } from 'mobx-react';
-import { Badge, ListGroupItem } from 'react-bootstrap';
+import { Alert, Badge, Button, ListGroupItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import React from 'react';
+import { isEmpty } from 'lodash';
 
 const SavedDateList = observer(({ savedDateList }) => {
-    console.log('SavedDateList');
+    console.log('SavedDateList', savedDateList);
 
-    return savedDateList.map((date) => {
+    if (isEmpty(savedDateList)) {
+        return (
+            <Alert variant="success">
+                저장한 찬양이 없습니다.
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => window.history.back()} variant="outline-danger">
+                        뒤로 가기
+                    </Button>
+                </div>
+            </Alert>
+        );
+    }
+
+    return savedDateList.map((item) => {
+        const { formatedDate, date } = item;
+
         return (
             <LinkContainer key={date} exact to={`/history/${date}`}>
                 <ListGroupItem>
-                    <Badge variant="info">{date}</Badge>
+                    <Badge variant="info">{formatedDate}</Badge>
                     <svg
                         style={{ marginTop: '3px', float: 'right' }}
                         width="1em"

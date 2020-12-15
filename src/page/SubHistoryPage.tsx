@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { inject, observer } from 'mobx-react';
 import MainStore from '../store/MainStore';
-import Praise from '../component/Praise';
+import SavedPraiseList from '../component/SavedPraiseList';
 
 interface MainStoreProps {
     mainStore?: MainStore;
@@ -18,11 +18,10 @@ class SubHistoryPage extends Component<MainStoreProps> {
     }
 
     render() {
+        console.log('SubHistoryPage');
         return (
             <ListGroup variant="flush">
-                {this.props.mainStore?.savedPraiseList.map((praise) => {
-                    return <Praise key={praise.no} praise={praise} />;
-                })}
+                <SavedPraiseList savedPraiseList={this.props.mainStore?.savedPraiseList} removePraise={this.props.mainStore?.removePraise} />
             </ListGroup>
         );
     }

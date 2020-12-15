@@ -39,7 +39,7 @@ export default class MainStore {
     @action.bound
     init() {
         transaction(() => {
-            this.praiseList = praiseList.map((praise) => new PraiseModel({ ...praise, url: '' }));
+            this.praiseList = praiseList.map((praise) => new PraiseModel({ ...praise, url: '', savedDate: '' }));
             this.maxNo = praiseList[praiseList.length - 1].no;
 
             this.setPraise(this.DEFAULT_NO);
@@ -55,11 +55,11 @@ export default class MainStore {
 
     @action.bound
     selectMenu(url) {
-        console.log('selectMenu', url);
-        this.menuList.forEach((menu: MenuModel) => {
-            console.log(menu.url, url, url.indexOf(menu.url) > -1);
-            menu.isActive = url.indexOf(menu.url) > -1;
-        });
+        // console.log('selectMenu', url);
+        // this.menuList.forEach((menu: MenuModel) => {
+        //     console.log(menu.url, url, url.indexOf(menu.url) > -1);
+        //     menu.isActive = url.indexOf(menu.url) > -1;
+        // });
     }
 
     @action.bound
@@ -95,11 +95,45 @@ export default class MainStore {
             return [];
         }
 
-        const findItem = historyList.find((history) => history._formatedDate === savedDate);
+        const findItem = historyList.find((history) => history._savedDate === savedDate);
+        if (!findItem) {
+            return [];
+        }
 
-        const praiseList = findItem._savedList.map((item) => new PraiseModel({ no: item._no, title: item._title, url: `${this.IMAGE_PATH}${item._no}.jpg` }));
+        const praiseList = findItem._savedList.map((item) => new PraiseModel({ no: item._no, title: item._title, url: `${this.IMAGE_PATH}${item._no}.jpg`, savedDate: findItem._savedDate }));
 
         this.savedPraiseList = sortBy(praiseList, 'seq');
+    }
+
+    @action.bound
+    removePraise(e) {
+        const date = e.target.getAttribute('data-date');
+        const no = Number.parseInt(e.target.getAttribute('data-no'), 10);
+
+        const praise = localStorage.getItem('praise');
+        if (!praise) {
+            return;
+        }
+
+        const historyList = JSON.parse(praise);
+
+        historyList.forEach((history) => {
+            if (history._savedDate === date) {
+                const filteredList = history._savedList.filter((praise) => praise._no !== no);
+
+                history._savedList = filteredList;
+
+                const praiseList = filteredList.map((item) => new PraiseModel({ no: item._no, title: item._title, url: `${this.IMAGE_PATH}${item._no}.jpg`, savedDate: date }));
+
+                this.savedPraiseList = sortBy(praiseList, 'seq');
+
+                if (no === this.selectedPraise?.no) {
+                    this.isTodaySavedPraise = false;
+                }
+            }
+        });
+
+        localStorage.setItem('praise', JSON.stringify(historyList));
     }
 
     @action.bound
@@ -120,6 +154,8 @@ export default class MainStore {
             historyList.push(historyModel);
 
             localStorage.setItem('praise', JSON.stringify(historyList));
+
+            this.isTodaySavedPraise = true;
 
             return;
         }
@@ -200,7 +236,9 @@ export default class MainStore {
             return [];
         }
 
-        return historyList.map((history) => history._formatedDate);
+        return historyList.map((history) => {
+            return { formatedDate: history._formatedDate, date: history._savedDate };
+        });
     }
 
     @computed

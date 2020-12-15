@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink, withRouter, RouteComponentProps } from 'react-router-dom';
-import { Nav, Navbar } from 'react-bootstrap';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
 import MainStore from '../store/MainStore';
 import { inject, observer } from 'mobx-react';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -38,13 +38,11 @@ const MenuList = observer(({ menuList }) => {
 
 const Menu = observer(({ menu }) => {
     const { name, url, isActive } = menu;
-    console.log('Footer Menu', isActive, url);
+    console.log('Footer Menu', url);
     return (
         <Nav.Item>
             <LinkContainer exact to={url}>
-                <Nav.Link eventKey={url} active={isActive}>
-                    {name}
-                </Nav.Link>
+                <Nav.Link eventKey={url}>{name}</Nav.Link>
             </LinkContainer>
         </Nav.Item>
     );
