@@ -71,7 +71,7 @@ const Title = observer(({ praise }) => {
                 <Badge variant="success" pill>
                     {praise.no} 장
                 </Badge>
-                {praise.title.length > 20 ? praise.title.substring(0, 20) + '...' : praise.title}
+                <span>{praise.title.length > 20 ? praise.title.substring(0, 20) + '...' : praise.title}</span>
             </h6>
         </div>
     );

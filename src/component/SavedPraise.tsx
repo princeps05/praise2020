@@ -8,7 +8,7 @@ const SavedPraise = observer(({ praise, removePraise }) => {
     console.log(praise);
     return (
         <ListGroupItem key={no}>
-            <LinkContainer exact to={`/${no}`} style={{ float: 'left', width: '80%', textOverflow: 'ellipsis', whiteSpace: 'nowrap', wordWrap: 'normal', overflow: 'hidden' }}>
+            <LinkContainer exact to={`/home/${no}`} style={{ float: 'left', width: '80%', textOverflow: 'ellipsis', whiteSpace: 'nowrap', wordWrap: 'normal', overflow: 'hidden' }}>
                 <div>
                     <Badge variant="success" pill>
                         {no} 장
@@ -36,7 +36,7 @@ const SavedPraise = observer(({ praise, removePraise }) => {
                 />
             </svg>
 
-            <LinkContainer exact to={`/${no}`} style={{ float: 'right', margin: '4px', position: 'relative', display: 'block' }}>
+            <LinkContainer exact to={`/home/${no}`} style={{ float: 'right', margin: '4px', position: 'relative', display: 'block' }}>
                 <svg width="16" height="16" viewBox="0 0 16 16" className="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                 </svg>

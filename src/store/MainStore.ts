@@ -54,15 +54,6 @@ export default class MainStore {
     }
 
     @action.bound
-    selectMenu(url) {
-        // console.log('selectMenu', url);
-        // this.menuList.forEach((menu: MenuModel) => {
-        //     console.log(menu.url, url, url.indexOf(menu.url) > -1);
-        //     menu.isActive = url.indexOf(menu.url) > -1;
-        // });
-    }
-
-    @action.bound
     selectPraiseRange(no = 1) {
         this.selectedPraiseRange = no;
     }
@@ -139,7 +130,7 @@ export default class MainStore {
     @action.bound
     savePraise() {
         const today = format(new Date(), 'yyyyMMdd');
-        // const today = '20201205';
+
         const praise = localStorage.getItem('praise');
 
         // 로컬스토리지에 아예 없는 경우
@@ -293,30 +284,25 @@ export default class MainStore {
             {
                 name: '목차',
                 url: '/catalog',
-                isActive: false,
             },
             {
                 name: '검색',
                 url: '/search',
-                isActive: false,
             },
             {
                 name: '악보',
-                url: '',
-                isActive: false,
+                url: '/home',
             },
             {
                 name: '내역',
                 url: '/history',
-                isActive: false,
             },
             {
                 name: '정보',
                 url: '/info',
-                isActive: false,
             },
         ];
 
-        this.menuList = menuList.map((menu: { name: string; url: string; isActive: boolean }) => new MenuModel(menu));
+        this.menuList = menuList.map((menu: { name: string; url: string }) => new MenuModel(menu));
     }
 }

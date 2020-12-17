@@ -17,37 +17,35 @@ class Footer extends Component<MainStoreProps> {
     }
 
     render() {
-        console.log('Footer ');
-
+        const activeMenu = this.props.location.pathname.split('/')[1];
+        console.log('Footer', activeMenu);
         return (
             <footer>
-                <Nav justify variant="tabs" onSelect={this.props.mainStore?.selectMenu}>
-                    <MenuList menuList={this.props.mainStore?.menuList} />
+                <Nav justify variant="tabs">
+                    <MenuList activeMenu={activeMenu} />
                 </Nav>
             </footer>
         );
     }
 }
 
-const MenuList = observer(({ menuList }) => {
-    console.log('Footer MenuList', menuList);
+const MenuList = observer(({ activeMenu }) => {
     return (
         <>
-            <Catalog />
-            <Search />
-            <Home />
-            <History />
-            <Info />
+            <Catalog isActive={activeMenu === 'catalog'} />
+            <Search isActive={activeMenu === 'search'} />
+            <Home isActive={activeMenu === 'home'} />
+            <History isActive={activeMenu === 'history'} />
+            <Info isActive={activeMenu === 'info'} />
         </>
     );
 });
 
-const Catalog = observer(() => {
-    console.log('Catalog');
+const Catalog = observer(({ isActive }) => {
     return (
         <Nav.Item>
             <LinkContainer exact to={'/catalog'}>
-                <Nav.Link eventKey={'/catalog'}>
+                <Nav.Link eventKey={'/catalog'} active={isActive}>
                     <svg style={{ marginTop: '-4px' }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="bi bi-list-stars" viewBox="0 0 16 16">
                         <path
                             fillRule="evenodd"
@@ -62,12 +60,12 @@ const Catalog = observer(() => {
     );
 });
 
-const Search = observer(() => {
+const Search = observer(({ isActive }) => {
     console.log('Search');
     return (
         <Nav.Item>
             <LinkContainer exact to={'/search'}>
-                <Nav.Link eventKey={'/search'}>
+                <Nav.Link eventKey={'/search'} active={isActive}>
                     <svg style={{ marginTop: '-3px' }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
                         <path fillRule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
@@ -79,13 +77,13 @@ const Search = observer(() => {
     );
 });
 
-const Home = observer(() => {
+const Home = observer(({ isActive }) => {
     console.log('Home');
     return (
         <Nav.Item>
-            <LinkContainer exact to={'/'}>
-                <Nav.Link eventKey={'/'}>
-                    <svg style={{ marginTop: '-4px' }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="bi bi-suit-heart" viewBox="0 0 16 16">
+            <LinkContainer exact to={'/home'}>
+                <Nav.Link eventKey={'/home'} active={isActive}>
+                    <svg style={{ marginTop: '-3px' }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="bi bi-suit-heart" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z" />
                         <path
                             fillRule="evenodd"
@@ -99,12 +97,12 @@ const Home = observer(() => {
     );
 });
 
-const History = observer(() => {
+const History = observer(({ isActive }) => {
     console.log('History');
     return (
         <Nav.Item>
             <LinkContainer exact to={'/history'}>
-                <Nav.Link eventKey={'/history'}>
+                <Nav.Link eventKey={'/history'} active={isActive}>
                     <svg style={{ marginTop: '-4px' }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="bi bi-music-note-list" viewBox="0 0 16 16">
                         <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z" />
                         <path fillRule="evenodd" d="M12 3v10h-1V3h1z" />
@@ -121,12 +119,12 @@ const History = observer(() => {
     );
 });
 
-const Info = observer(() => {
+const Info = observer(({ isActive }) => {
     console.log('Info');
     return (
         <Nav.Item>
             <LinkContainer exact to={'/info'}>
-                <Nav.Link eventKey={'/info'}>
+                <Nav.Link eventKey={'/info'} active={isActive}>
                     <svg style={{ marginTop: '-4px' }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                         <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />

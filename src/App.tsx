@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, Router, useLocation } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import { Provider } from 'mobx-react';
 
 import MainStore from './store/MainStore';
@@ -13,6 +14,8 @@ import InfoPage from './page/InfoPage';
 import Header from './component/Header';
 import Footer from './component/Footer';
 
+const history = createBrowserHistory();
+
 export default class App extends Component {
     mainStore: MainStore;
 
@@ -24,8 +27,8 @@ export default class App extends Component {
     render() {
         console.log('App');
         return (
-            <Router>
-                <Provider mainStore={this.mainStore}>
+            <Provider mainStore={this.mainStore}>
+                <Router history={history}>
                     <Header />
 
                     <section>
@@ -36,13 +39,14 @@ export default class App extends Component {
                             <Route exact path="/history" component={HistoryPage} />
                             <Route exact path="/history/:savedDate" component={SubHistoryPage} />
                             <Route exact path="/info" component={InfoPage} />
-                            <Route exact path="/:no?" component={MainPage} />
+                            <Route exact path="/home/:no?" component={MainPage} />
+                            <Route path="*" component={MainPage} />
                         </Switch>
                     </section>
 
                     <Footer />
-                </Provider>
-            </Router>
+                </Router>
+            </Provider>
         );
     }
 }

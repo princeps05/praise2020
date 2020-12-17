@@ -8,7 +8,7 @@ const Praise = observer(({ praise }) => {
 
     return (
         <ListGroupItem key={no}>
-            <LinkContainer exact to={`/${no}`}>
+            <LinkContainer exact to={`/home/${no}`}>
                 <div>
                     <Badge variant="success" pill>
                         {no} 장
