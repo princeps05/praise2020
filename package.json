@@ -78,13 +78,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/preset-react": "^7.12.1",
     "@babel/preset-typescript": "^7.12.7",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-proposal-decorators": "^7.12.1",
     "@snowpack/app-scripts-react": "^1.12.5",
     "@snowpack/plugin-babel": "^2.1.4",
+    "@snowpack/plugin-react-refresh": "^2.3.9",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "snowpack": "^2.15.1"
   }

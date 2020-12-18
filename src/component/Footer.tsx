@@ -34,7 +34,7 @@ const MenuList = observer(({ activeMenu }) => {
         <>
             <Catalog isActive={activeMenu === 'catalog'} />
             <Search isActive={activeMenu === 'search'} />
-            <Home isActive={activeMenu === 'home'} />
+            <Home isActive={activeMenu === 'home' || activeMenu.length === 0} />
             <History isActive={activeMenu === 'history'} />
             <Info isActive={activeMenu === 'info'} />
         </>

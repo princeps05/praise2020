@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch, Router, useLocation } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { Route, Switch, HashRouter } from 'react-router-dom';
+
 import { Provider } from 'mobx-react';
 
 import MainStore from './store/MainStore';
@@ -14,21 +14,21 @@ import InfoPage from './page/InfoPage';
 import Header from './component/Header';
 import Footer from './component/Footer';
 
-const history = createBrowserHistory();
-
 export default class App extends Component {
     mainStore: MainStore;
 
     constructor(props) {
         super(props);
+
         this.mainStore = new MainStore();
     }
 
     render() {
         console.log('App');
+        // 현재 페이지로 리프레시 불가한 이슈가 있어서 HashRouter 사용
         return (
             <Provider mainStore={this.mainStore}>
-                <Router history={history}>
+                <HashRouter>
                     <Header />
 
                     <section>
@@ -45,7 +45,7 @@ export default class App extends Component {
                     </section>
 
                     <Footer />
-                </Router>
+                </HashRouter>
             </Provider>
         );
     }

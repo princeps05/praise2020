@@ -3,7 +3,7 @@ import { Badge, ListGroupItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import React from 'react';
 
-const PraiseRangeList = observer(({ praiseRangeList }) => {
+const PraiseRangeList = ({ praiseRangeList }) => {
     console.log('PraiseRangeList');
 
     return praiseRangeList.map(({ start, end }) => {
@@ -28,6 +28,6 @@ const PraiseRangeList = observer(({ praiseRangeList }) => {
             </ListGroupItem>
         );
     });
-});
+};
 
-export default PraiseRangeList;
+export default observer(PraiseRangeList);
